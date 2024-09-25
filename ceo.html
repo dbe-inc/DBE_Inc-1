@@ -10,27 +10,74 @@
 	<script src="js/Nav_Handler.js"></script>
 
 	<script>
+		let HTML_Manager = {
+			//Properties
+			loaded: false,
+			showing: false,
+			htmlTargetEle: {},
 
+			//Methods
+			load: function(HTMLsourceFile) {
+				//alert("this.loaded: " + this.loaded);
+				this.htmlTargetEle.style.visibility = "visible";
+				if(!this.loaded){
+					fetch(HTMLsourceFile)
+					.then(res => {
+						//alert("in res =>");
+						if (res.ok) {
+							//alert("res.ok");
+							return res.text();
+						}
+					})
+					.then(resultHTML => {
+						//alert("loading resultHTML");
+						this.htmlTargetEle.innerHTML = resultHTML;
+					})
+
+					this.loaded = true;
+				} 
+				//alert("setting zIndex to -10");
+				//this.html_target_ele.style.zIndex = "-10";
+				this.showing = true; 
+			},
+
+            close: function(){
+				this.htmlTargetEle.style.visibility = "hidden";
+            },
+
+			init: function(){
+				//alert("in init()");
+				this.htmlTargetEle = document.getElementById("html-target-id");
+				//alert("after");
+			}
+		}
+
+		
 	</script>
 
 	<style>
+        .span-spacer{
+            visibility: hidden;
+        }
 		
-		h1{
-			position: absolute;
-			top: 0.5em;
-			left: calc(50% - 5em);
-			color: khaki;
-			margin: auto;
-		/*	z-index: 10; */
+		.ceo-proposal-label{
+			font-size: 2em;
+            font-weight: bold;
+          /*  margin-left: 0.2vw; */
+		}
+		.a-little-history-label{
+			font-size: 1.5em;
+            font-weight: bold;
 		}
 
 		.ceo-contents{
 			display: grid;
-			grid-template-columns: 1fr 1fr 1fr;
+			/*grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 30% 30% 40%;*/
 			grid-template-areas: "proposal packet resources";
 		}
 
-			.ceo-ele{
+			.ceo-label{
 				color: white;
 				font-size: 2.5em;
 				font-weight: bold;
@@ -39,17 +86,111 @@
 				cursor: pointer;
 			}
 
-			.ceo-proposal{
+			.ceo-proposal-label{
 				grid-area: proposal;
 			}
+            .ceo-proposal-label:hover{
+				color: yellow;
+			}
 
-			.ceo-packet{
+			.ceo-packet-label{
 				grid-area: packet;
 			}
+            .ceo-packet-label:hover{
+				color: yellow;
+			}
 
-			.ceo-resources{
+			.ceo-resources-label{
 				grid-area: resources;
 			}
+            .ceo-resources-label:hover{
+				color: yellow;
+			}
+
+            .welcome-label{
+                position: absolute;
+                top: 0.5em;
+                left: calc(50% - 5em); 
+                color: yellow;
+                /*margin: auto;*/
+            /*	z-index: 10; */
+            }
+
+		.ceo-html{
+			position: absolute;
+			top: 0.5em;
+			left: 25%;
+			width: 50%;
+			height: 95vh;
+            visibility: hidden;
+			/*z-index: 10;*/
+			color: yellow;
+            background-image: radial-gradient(blue, black);
+		/*background-color: #2196F3; */
+			border: 2px solid yellow;
+			border-radius: 10px;
+			padding: 0 1em;
+		    overflow-y: scroll; 
+			/*z-index: 10; */
+		}
+        .close-ceo-html{
+            position:absolute;
+            top: 0;
+            right: 0.5em;
+            cursor: pointer;
+            color: red;
+            border: 1px solid red;
+            font-size: 1.5em;
+        }
+        .close-cel-html:hover{
+            font-weight: bold;
+        }
+
+		
+
+		/* CSS for Proposal I */
+		.a-little-history {
+			font-weight: bold;
+			display: grid;
+           /* grid-template-columns: 1fr 1fr 1fr;*/
+            grid-template-columns: 35% 35% 30%;
+			grid-template-areas:
+			"cont1a cont1a cont1b"
+			"cont2a cont2a cont2b"
+			". cont2c cont2c"
+			'cont3a cont3a cont3a'
+			'cont4a cont4a cont4a'
+			'cont5a cont5a cont5a'
+			;
+			grid-gap: 10px;
+			padding: 10px;
+		}
+
+			.text-1-a { grid-area: cont1a; }
+			.img-1-b { grid-area: cont1b; width: 70%; }
+			.text-2-a { grid-area: cont2a; }
+			.img-2-b { grid-area: cont2b; width: 100%; }
+			.credits-2-c { grid-area: cont2c; }
+			.text-3-a { grid-area: cont3a }
+			.img-4-a { grid-area: cont4a; width: 100%}
+			.credits-5-a { grid-area: cont5a }
+
+			.a-little-history > p {
+			/*  background-color: rgba(255, 255, 255, 0.8); 
+			  text-align: center; */
+			  padding: 5px;
+              padding-right: 1em;
+              margin-right: 2em;
+			  font-size: 1.2em;
+			}
+
+            .proposal{
+                font-size: 1.5em;
+            }
+
+	/* End CSS for proposal I */ 
+
+   
 
 	</style>
 
@@ -75,13 +216,16 @@
     <!--    <div id="nav-bottom-id"></div>  -->
     </nav>  
 
+	
 	<div class="page">
-		<h1>Welcome to the CEO page</h1>
+		<h1 class="welcome-label">Welcome to the CEO page</h1>
 		<div class="ceo-contents">
-			<label class="ceo-ele ceo-proposal">Proposal</label>
-			<label class="ceo-ele ceo-packet">CEO's<br>Packet</label>
-			<label class="ceo-ele ceo-resources">Resources</label>
+			<label class="ceo-label ceo-proposal-label"  onclick="HTML_Manager.load('html/ceo_html/Proposal.html')">Proposal</label>
+			<label class="ceo-label ceo-packet-label">CEO's<br>Packet</label>
+			<label class="ceo-label ceo-resources-label">Resources</label>
 	    </div>
+		<article id="html-target-id" class="ceo-html">
+		</article>
 	</div>
 
 
@@ -90,6 +234,7 @@
     	function init(){
     		// initialize
     		NavHandler.init();
+			HTML_Manager.init();
     	}
     </script>
 
