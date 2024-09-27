@@ -8,54 +8,37 @@
 	<link rel="stylesheet" type="text/css" href="css/nav.css">
 	<link rel="stylesheet" type="text/css" href="css/ceo/ceo-pg.css">
 	<script src="js/Nav_Handler.js"></script>
+	<script src="js/HTML_Manager.js"></script>
 
-	<script>
-		let HTML_Manager = {
-			//Properties
-			loaded: false,
-			showing: false,
-			htmlTargetEle: {},
-
-			//Methods
-			load: function(HTMLsourceFile) {
-				//alert("this.loaded: " + this.loaded);
-				this.htmlTargetEle.style.visibility = "visible";
-				if(!this.loaded){
-					fetch(HTMLsourceFile)
-					.then(res => {
-						//alert("in res =>");
-						if (res.ok) {
-							//alert("res.ok");
-							return res.text();
-						}
-					})
-					.then(resultHTML => {
-						//alert("loading resultHTML");
-						this.htmlTargetEle.innerHTML = resultHTML;
-					})
-
-					this.loaded = true;
-				} 
-				//alert("setting zIndex to -10");
-				//this.html_target_ele.style.zIndex = "-10";
-				this.showing = true; 
-			},
-
-            close: function(){
-				this.htmlTargetEle.style.visibility = "hidden";
-            },
-
-			init: function(){
-				//alert("in init()");
-				this.htmlTargetEle = document.getElementById("html-target-id");
-				//alert("after");
-			}
-		}
-
-		
+	<script>	
 	</script>
 
 	<style>
+		.transition-fade-in{ 
+			transition: opacity 0.5s;
+		}
+		/*.animate-fadeIn {
+			animation: fadeIn 1s;
+		}
+		@keyframes fadeIn {
+			0% {
+				opacity: 0;
+				}
+			100% {
+				opacity: 1;
+			}
+		}
+		.animate-fadeOut {
+			animation: fadeOut 1s;
+		}
+		@keyframes fadeOut {
+			0% {
+					opacity: 1;
+				}
+			100% {
+				opacity: 0;
+			}
+		} */
         .span-spacer{
             visibility: hidden;
         }
@@ -118,12 +101,13 @@
 
 		.ceo-html{
 			position: absolute;
-			top: 0.5em;
+			top: 0.5em; 
 			left: 25%;
 			width: 50%;
 			height: 95vh;
-            visibility: hidden;
-			/*z-index: 10;*/
+			opacity: 0;
+			z-index: -10;
+			transition: opacity 1s;
 			color: yellow;
             background-image: radial-gradient(blue, black);
 		/*background-color: #2196F3; */
@@ -138,12 +122,16 @@
             top: 0;
             right: 0.5em;
             cursor: pointer;
-            color: red;
-            border: 1px solid red;
+            color: black;
+          /*  border: 1px solid red; */
+		    border-radius: 5px;
+			background-color: red;
+			padding: 0 0.2em;
             font-size: 1.5em;
         }
-        .close-cel-html:hover{
-            font-weight: bold;
+        .close-ceo-html:hover{
+            font-size: 1.6em;
+			font-weight: bold;
         }
 
 		
@@ -220,9 +208,9 @@
 	<div class="page">
 		<h1 class="welcome-label">Welcome to the CEO page</h1>
 		<div class="ceo-contents">
-			<label class="ceo-label ceo-proposal-label"  onclick="HTML_Manager.load('html/ceo_html/Proposal.html')">Proposal</label>
-			<label class="ceo-label ceo-packet-label">CEO's<br>Packet</label>
-			<label class="ceo-label ceo-resources-label">Resources</label>
+			<label class="ceo-label ceo-proposal-label"  onclick="HTML_Manager.load('html/CEO/Proposal.html')">Proposal</label>
+			<label class="ceo-label ceo-packet-label" onclick="HTML_Manager.load('html/CEO/CEO_Packet.html')">CEO's<br>Packet</label>
+			<label class="ceo-label ceo-resources-label" onclick="HTML_Manager.load('html/CEO/Resources.html')">Resources</label>
 	    </div>
 		<article id="html-target-id" class="ceo-html">
 		</article>
