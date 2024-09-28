@@ -7,7 +7,7 @@ let HTML_Manager = {
     //Methods
     load: function(HTMLsourceFile) {
         //alert("in load");
-       // alert("HTMLsourceFile: " + HTMLsourceFile);
+        //alert("HTMLsourceFile: " + HTMLsourceFile);
         this.htmlTargetEle.style.zIndex = 10;
         this.htmlTargetEle.style.opacity= "1";
       //  if(!this.loaded){
@@ -45,6 +45,6 @@ let HTML_Manager = {
         //alert("in init()");
         this.htmlTargetEle = document.getElementById("html-target-id");
         this.htmlTargetEle.addEventListener("transitionend",this.transitionHasEnded);
-        //alert("after");
+        //alert("after init()");
     }
 }
