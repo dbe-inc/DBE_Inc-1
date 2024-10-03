@@ -46,26 +46,20 @@
 				padding: 0 10%;
 				cursor: pointer;
 			}
+				.ceo-label:hover{
+					color: yellow;
+				}
 
 			.ceo-proposal-label{
 				grid-area: proposal;
-			}
-            .ceo-proposal-label:hover{
-				color: yellow;
 			}
 
 			.ceo-packet-label{
 				grid-area: packet;
 			}
-            .ceo-packet-label:hover{
-				color: yellow;
-			}
 
 			.ceo-resources-label{
 				grid-area: resources;
-			}
-            .ceo-resources-label:hover{
-				color: yellow;
 			}
 
             .welcome-label{
@@ -114,7 +108,7 @@
 
 		
 
-		/* CSS for Proposal I */
+	/* CSS for Proposal I */
 		.a-little-history {
 			font-weight: bold;
 			display: grid;
@@ -150,13 +144,23 @@
 			  font-size: 1.2em;
 			}
 
-            .proposal{
+            .proposal, .packet, .resource{
                 font-size: 1.5em;
+				font-weight: bold;
             }
+
+			.ceo-proposal-label, .ceo-packet-label, .ceo-resource-label{
+                font-size: 1.8em;
+				font-weight: bold;
+				text-align: center;
+				display: block;
+			}
 
 	/* End CSS for proposal I */ 
 
-   
+   	/* CSS for CEO Packet */
+
+	/* End CSS for CEO Packet */
 
 	</style>
 
@@ -186,9 +190,9 @@
 	<div class="page">
 		<h1 class="welcome-label">Welcome to the CEO page</h1>
 		<div class="ceo-contents">
-			<label class="ceo-label ceo-proposal-label"  onclick="HTML_Manager.load('html/CEO/Proposal.html')">Proposal</label>
-			<label class="ceo-label ceo-packet-label" onclick="HTML_Manager.load('html/CEO/CEO_Packet.html')">CEO's<br>Packet</label>
-			<label class="ceo-label ceo-resources-label" onclick="HTML_Manager.load('html/CEO/Resources.html')">Resources</label>
+			<label class="ceo-label" onclick="HTML_Manager.load('html/CEO/Proposal.html')">Proposal</label>
+			<label class="ceo-label" onclick="HTML_Manager.load('html/CEO/CEO_Packet.html')">CEO's<br>Packet</label>
+			<label class="ceo-label" onclick="HTML_Manager.load('html/CEO/Resources.html')">Resources</label>
 	    </div>
 		<article id="html-target-id" class="ceo-html">
 		</article>
